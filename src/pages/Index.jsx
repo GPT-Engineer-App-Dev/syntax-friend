@@ -1,17 +1,36 @@
-// Update this page (the content is just a fallback if you fail and example)
-// Use chakra-ui
-import { Container, Text, VStack } from "@chakra-ui/react";
-
-// Example of using react-icons
-// import { FaRocket } from "react-icons/fa";
-// <IconButton aria-label="Add" icon={<FaRocket />} size="lg" />; // IconButton would also have to be imported from chakra
+import { Container, Text, VStack, Box } from "@chakra-ui/react";
+import { useState } from "react";
+import { Controlled as CodeMirror } from "react-codemirror2";
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/xml/xml.js';
+import 'codemirror/mode/css/css.js';
 
 const Index = () => {
+  const [code, setCode] = useState('// Start coding...');
+
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Your Blank Canvas</Text>
-        <Text>Chat with the agent to start making edits.</Text>
+    <Container maxW="container.xl" p={5}>
+      <VStack spacing={4} align="stretch">
+        <Text fontSize="2xl" mb={4}>Simple Code Editor</Text>
+        <Box border="1px" borderColor="gray.200" p={2}>
+          <CodeMirror
+            value={code}
+            options={{
+              mode: 'javascript',
+              theme: 'material',
+              lineNumbers: true,
+              lineWrapping: true,
+              autoCloseTags: true,
+              autoCloseBrackets: true,
+              matchBrackets: true,
+            }}
+            onBeforeChange={(editor, data, value) => {
+              setCode(value);
+            }}
+          />
+        </Box>
       </VStack>
     </Container>
   );
